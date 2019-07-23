@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "52444824151",
+    "firebase_url": "https://drop-cd433.firebaseio.com",
+    "project_id": "drop-cd433",
+    "storage_bucket": "drop-cd433.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52444824151:android:a0533f6ea3d5c92c",
+        "android_client_info": {
+          "package_name": "com.ani.drop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52444824151-ubsd9prscefn7i2uded0buucnp1v4o59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVOJdPbKEFLsCy3uBgfFAFwE8U4NAtucA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52444824151-ubsd9prscefn7i2uded0buucnp1v4o59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
