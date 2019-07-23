@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var mFirebaseAuth : FirebaseAuth = FirebaseAuth.getInstance()
+    private var mFirebaseUser : FirebaseUser? = mFirebaseAuth.currentUser
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
