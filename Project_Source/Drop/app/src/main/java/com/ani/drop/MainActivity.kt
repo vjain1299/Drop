@@ -1,44 +1,55 @@
 package com.ani.drop
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.map_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-    private var mFirebaseAuth : FirebaseAuth = FirebaseAuth.getInstance()
-    private var mFirebaseUser : FirebaseUser? = mFirebaseAuth.currentUser
+    private lateinit var mFirebaseAuth : FirebaseAuth
+    private lateinit var mFirebaseUser : FirebaseUser?
+    private lateinit var mMap: GoogleMap
+    private var isMapSentsitive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseUser = mFirebaseAuth.currentUser
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
-        // val fab: FloatingActionButton = findViewById(R.id.fab)
-        // fab.setOnClickListener { view ->
-        //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //            .setAction("Action", null).show()
-        //}
+        val fab: FloatingActionButton = findViewById(R.id.addPeg)
+        fab.setOnClickListener { view ->
+           Snackbar.make(view, if(isMapSentsitive) "Cancelled" else "Select Location for Drop", Snackbar.LENGTH_LONG).show()
+            isMapSentsitive = !isMapSentsitive
+        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
 
         navView.setNavigationItemSelectedListener(this)
     }
@@ -80,5 +91,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        // val cleveland = LatLng(41.4993, -81.6944) // For fun (might come in handy later)
+        val mapClicked : GoogleMap.OnMapClickListener = GoogleMap.OnMapClickListener { addMarkerToMap(it) }
+        mMap.setOnMapClickListener(mapClicked)
+
+    }
+    private fun addMarkerToMap(position : LatLng) {
+        if(isMapSentsitive) {
+            mMap.addMarker(MarkerOptions().position(position))
+            isMapSentsitive = false
+            val intent = Intent(this, AddDropActivity::class.java)
+            intent.putExtra("LatLng", position)
+            startActivity(intent)
+        }
     }
 }

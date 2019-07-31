@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true" app:srcCompat="@drawable/ic_add_white"
-            android:id="@+id/floatingActionButton" app:backgroundTint="#009688"
+            android:id="@+id/addPeg" app:backgroundTint="#009688"
             android:layout_gravity="bottom|end" android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin" android:focusable="true"
             android:layout_marginEnd="@dimen/fab_margin"/>

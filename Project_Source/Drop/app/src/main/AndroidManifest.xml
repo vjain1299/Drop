@@ -15,7 +15,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".DropListActivity">
+        <activity
+                android:name=".AddDropActivity"
+                android:label="@string/title_activity_add_drop"
+                android:parentActivityName=".MainActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.ani.drop.MainActivity"/>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -29,6 +36,8 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
 
+        <activity android:name=".DropListActivity">
+        </activity>
         <activity
                 android:name=".ui.login.LoginActivity"
                 android:label="@string/title_activity_login">

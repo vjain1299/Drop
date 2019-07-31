@@ -111,4 +111,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="exampleText">TextView</string>
+    <string name="title_activity_map_example">Map</string>
+    <string name="title_activity_add_drop">Add a Drop</string>
+    <string name="add_topic">Topic</string>
+    <string name="add_topic_here">Add Topic Here</string>
+    <string name="add_a_message">Add a Message</string>
+    <string name="share_with_friends">Share with Friends</string>
+    <string name="share_with_everyone">Share with Everyone</string>
 </resources>
