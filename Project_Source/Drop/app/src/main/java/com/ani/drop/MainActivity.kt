@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var mMap: GoogleMap
     private var isMapSentsitive = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         val fab: FloatingActionButton = findViewById(R.id.addPeg)
         fab.setOnClickListener { view ->
@@ -95,6 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
         // val cleveland = LatLng(41.4993, -81.6944) // For fun (might come in handy later)
         val mapClicked : GoogleMap.OnMapClickListener = GoogleMap.OnMapClickListener { addMarkerToMap(it) }
         mMap.setOnMapClickListener(mapClicked)

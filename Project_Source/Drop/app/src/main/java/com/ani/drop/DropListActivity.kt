@@ -1,5 +1,6 @@
 package com.ani.drop
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ani.drop.data.model.Drop
@@ -12,6 +13,9 @@ class DropListActivity : AppCompatActivity(), DropFragment.OnListFragmentInterac
     }
 
     override fun onListFragmentInteraction(item: Drop?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var dropIntent = Intent(this, DropContainer::class.java)
+        dropIntent.putExtra("title", item?.subject)
+        dropIntent.putExtra("body", item?.message)
+        startActivity(dropIntent)
     }
 }

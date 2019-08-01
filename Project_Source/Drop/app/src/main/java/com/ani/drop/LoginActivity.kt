@@ -39,9 +39,11 @@ class LoginActivity : AppCompatActivity() {
         }
         val emailSignInButton : Button = findViewById(R.id.sign_in_email)
         emailSignInButton.setOnClickListener {
-            auth.createUserWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            auth.signInWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
+            if(auth.currentUser != null || (auth.createUserWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString()).isSuccessful)) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
     }
