@@ -11,4 +11,5 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".DropFragment"
-        tools:listitem="@layout/activity_drop"/>
+        app:fastScrollEnabled="false" tools:itemCount="12"
+/>

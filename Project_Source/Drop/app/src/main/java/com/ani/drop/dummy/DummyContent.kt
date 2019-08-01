@@ -1,7 +1,8 @@
 package com.ani.drop.dummy
 
-import java.util.ArrayList
-import java.util.HashMap
+import com.ani.drop.data.model.Drop
+import com.google.android.gms.maps.model.LatLng
+import java.util.*
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -14,25 +15,25 @@ object DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    val ITEMS: MutableList<DummyItem> = ArrayList()
+    val DROPS: MutableList<Drop> = ArrayList()
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
+    val ITEM_MAP: MutableMap<String, Drop> = HashMap()
 
     private val COUNT = 25
 
     init {
         // Add some sample items.
         for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
+            addItem(Drop("Hello","Good Afternoon", i.toString(), LatLng(41.4993, -81.6944)))
         }
     }
 
-    private fun addItem(item: DummyItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+    private fun addItem(item: Drop) {
+        DROPS.add(item)
+        ITEM_MAP.put(item.timestamp.date.toString(), item)
     }
 
     private fun createDummyItem(position: Int): DummyItem {

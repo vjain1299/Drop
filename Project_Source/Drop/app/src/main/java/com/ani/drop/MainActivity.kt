@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private lateinit var mFirebaseAuth : FirebaseAuth
-    private lateinit var mFirebaseUser : FirebaseUser?
+    private var mFirebaseUser : FirebaseUser? = null
     private lateinit var mMap: GoogleMap
     private var isMapSentsitive = false
 
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         mFirebaseAuth = FirebaseAuth.getInstance()
         mFirebaseUser = mFirebaseAuth.currentUser
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)

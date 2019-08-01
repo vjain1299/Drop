@@ -1,15 +1,14 @@
 package com.ani.drop
 
-import androidx.recyclerview.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-
+import androidx.recyclerview.widget.RecyclerView
 import com.ani.drop.DropFragment.OnListFragmentInteractionListener
+import com.ani.drop.data.model.Drop
 import com.ani.drop.dummy.DummyContent.DummyItem
-
 import kotlinx.android.synthetic.main.activity_drop.view.*
 
 /**
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_drop.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class DropRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
+    private val mValues: List<Drop>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<DropRecyclerViewAdapter.ViewHolder>() {
 
@@ -26,7 +25,7 @@ class DropRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as Drop
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -41,8 +40,8 @@ class DropRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.mIdView.text = item.timestamp.date.toString()
+        holder.mContentView.text = item.subject
 
         with(holder.mView) {
             tag = item

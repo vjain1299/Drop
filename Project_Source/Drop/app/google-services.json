@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "52444824151-i337k9pn5fpm1q5upr7fgbghnh2v32mm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ani.drop",
+            "certificate_hash": "4d01c1f48c327db824c65be04d7a46bbf9fe4bd7"
+          }
+        },
+        {
           "client_id": "52444824151-ubsd9prscefn7i2uded0buucnp1v4o59.apps.googleusercontent.com",
           "client_type": 3
         }

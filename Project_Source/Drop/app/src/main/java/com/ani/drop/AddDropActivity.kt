@@ -27,7 +27,7 @@ class AddDropActivity : AppCompatActivity() {
 
             val privacy = if(toggleButton.isChecked) "friends" else "everyone"
 
-            val newDrop = Drop(userInfo as FirebaseUser , title, body, privacy, spot as LatLng)
+            val newDrop = Drop(/*userInfo as FirebaseUser ,*/ title, body, privacy, spot as LatLng)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
