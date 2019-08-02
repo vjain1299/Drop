@@ -118,4 +118,6 @@
     <string name="add_a_message">Add a Message</string>
     <string name="share_with_friends">Share with Friends</string>
     <string name="share_with_everyone">Share with Everyone</string>
+    <string name="droptitle">DropTitle</string>
+    <string name="dropcontent">DropContent</string>
 </resources>

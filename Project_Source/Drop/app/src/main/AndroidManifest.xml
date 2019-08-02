@@ -16,6 +16,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".DropListActivity"
+                android:label="@string/title_activity_drop_list"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".DropContainer">
         </activity>
         <activity android:name=".LoginActivity">
@@ -46,8 +51,6 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
 
-        <activity android:name=".DropListActivity">
-        </activity>
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name"

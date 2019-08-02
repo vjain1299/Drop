@@ -36,7 +36,7 @@ class DropFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_drop_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_drop_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -77,6 +77,7 @@ class DropFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
         fun onListFragmentInteraction(item: Drop?)
     }
 

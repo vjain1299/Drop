@@ -10,15 +10,15 @@
     <com.google.android.material.appbar.AppBarLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="#00FFFFFF" app:statusBarForeground="#00FFFFFF">
+            android:background="@color/colorPrimary" app:statusBarForeground="@color/colorPrimaryDark">
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#00FFFFFF"
+                android:background="@color/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" app:title="@string/title_activity_add_drop"
-                app:titleTextColor="#000000"/>
+                app:titleTextColor="@color/common_google_signin_btn_text_dark_default"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

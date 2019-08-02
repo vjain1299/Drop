@@ -6,7 +6,7 @@ import java.util.*
 
 class Drop(/*own : FirebaseUser,*/ sub : String, msg : String, prv: String, latLng: LatLng) {
 
-    val timestamp : Date = Calendar.getInstance().time
+    val timestamp : Calendar = Calendar.getInstance()
     // val owner : FirebaseUser = own
     val subject : String = sub
     val message : String = msg

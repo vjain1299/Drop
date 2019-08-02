@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ani.drop.DropFragment.OnListFragmentInteractionListener
 import com.ani.drop.data.model.Drop
 import com.ani.drop.dummy.DummyContent.DummyItem
-import kotlinx.android.synthetic.main.activity_drop.view.*
+import kotlinx.android.synthetic.main.fragment_drop.view.*
+import java.text.SimpleDateFormat
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -34,13 +35,14 @@ class DropRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.activity_drop, parent, false)
+            .inflate(R.layout.fragment_drop, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.timestamp.date.toString()
+        var df : SimpleDateFormat = SimpleDateFormat("HH:mm:ss")
+        holder.mIdView.text = df.format(item.timestamp.time)
         holder.mContentView.text = item.subject
 
         with(holder.mView) {

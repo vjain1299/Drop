@@ -3,6 +3,7 @@ package com.ani.drop
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ani.drop.data.model.Drop
+import com.ani.drop.dummy.DummyContent
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +29,8 @@ class AddDropActivity : AppCompatActivity() {
             val privacy = if(toggleButton.isChecked) "friends" else "everyone"
 
             val newDrop = Drop(/*userInfo as FirebaseUser ,*/ title, body, privacy, spot as LatLng)
+
+            DummyContent.DROPS.add(newDrop)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
