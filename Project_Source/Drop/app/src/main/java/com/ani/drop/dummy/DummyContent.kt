@@ -1,7 +1,7 @@
 package com.ani.drop.dummy
 
+
 import com.ani.drop.data.model.Drop
-import com.google.android.gms.maps.model.LatLng
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,7 +16,7 @@ object DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    val DROPS: MutableList<Drop> = ArrayList()
+
 
     /**
      * A map of sample (dummy) items, by ID.
@@ -28,18 +28,12 @@ object DummyContent {
     init {
         // Add some sample items.
         for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
         }
     }
 
     private fun addItem(item: Drop) {
-        DROPS.add(item)
         var df : SimpleDateFormat = SimpleDateFormat("HH:mm:ss")
         ITEM_MAP.put(df.format(item.timestamp.time), item)
-    }
-
-    private fun createDummyItem(position: Int): Drop {
-        return Drop("Subject" + position.toString(), "Hello, this drop content serves as a sample for the view.","friends", LatLng(-1.0,-1.0))
     }
 
     private fun makeDetails(position: Int): String {

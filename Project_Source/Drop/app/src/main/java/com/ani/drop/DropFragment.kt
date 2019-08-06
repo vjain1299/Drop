@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ani.drop.data.model.Drop
-import com.ani.drop.dummy.DummyContent
 
 /**
  * A fragment representing a list of Items.
@@ -45,7 +44,7 @@ class DropFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = DropRecyclerViewAdapter(DummyContent.DROPS, listener)
+                adapter = DropRecyclerViewAdapter(DataAccess.DropList!!, listener)
             }
         }
         return view

@@ -1,6 +1,7 @@
 package com.ani.drop
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.ani.drop.DataAccess.RADIUS
+import com.ani.drop.data.model.Drop
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -16,35 +19,36 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-    private lateinit var mFirebaseAuth : FirebaseAuth
-    private var mFirebaseUser : FirebaseUser? = null
     private lateinit var mMap: GoogleMap
-    private var isMapSentsitive = false
+    private var isMapSensitive = false
+    private lateinit var mFirebaseFirestore : FirebaseFirestore
+    private var dropList : List<Drop>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        mFirebaseAuth = FirebaseAuth.getInstance()
-        mFirebaseUser = mFirebaseAuth.currentUser
-
         super.onCreate(savedInstanceState)
+        mFirebaseFirestore = FirebaseFirestore.getInstance()
+        dropList = getDropsInRadius(LatLng(0.0,0.0),mFirebaseFirestore)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        dropList?.forEach { drop ->
+            addMarker(drop)
+        }
+
 
         val fab: FloatingActionButton = findViewById(R.id.addPeg)
         fab.setOnClickListener { view ->
-           Snackbar.make(view, if(isMapSentsitive) "Cancelled" else "Select Location for Drop", Snackbar.LENGTH_LONG).show()
-            isMapSentsitive = !isMapSentsitive
+           Snackbar.make(view, if(isMapSensitive) "Cancelled" else "Select Location for Drop", Snackbar.LENGTH_LONG).show()
+            isMapSensitive = !isMapSensitive
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -99,17 +103,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mMap = googleMap
 
         // val cleveland = LatLng(41.4993, -81.6944) // For fun (might come in handy later)
-        val mapClicked : GoogleMap.OnMapClickListener = GoogleMap.OnMapClickListener { addMarkerToMap(it) }
+        val mapClicked : GoogleMap.OnMapClickListener = GoogleMap.OnMapClickListener { addDropToMap(it) }
         mMap.setOnMapClickListener(mapClicked)
 
     }
-    private fun addMarkerToMap(position : LatLng) {
-        if(isMapSentsitive) {
+    private fun addDropToMap(position : LatLng) {
+        if(isMapSensitive) {
             mMap.addMarker(MarkerOptions().position(position))
-            isMapSentsitive = false
+            isMapSensitive = false
             val intent = Intent(this, AddDropActivity::class.java)
             intent.putExtra("LatLng", position)
             startActivity(intent)
         }
     }
+    private fun addMarker(drop : Drop) {
+        mMap.addMarker(MarkerOptions().position(drop.position).title(drop.subject))
+    }
+    fun getDropsInRadius(position : LatLng, mFirebaseFirestore : FirebaseFirestore) : List<Drop>? {
+        val drops = mFirebaseFirestore.collection("dropsCollection")
+        var dropList : List<Drop>? = null
+        val filteredDrops = drops
+            .whereLessThanOrEqualTo("Latitude",position.latitude + RADIUS)
+            //.whereLessThanOrEqualTo("Longitude",position.longitude + RADIUS)
+            .whereGreaterThanOrEqualTo("Latitude", position.latitude - RADIUS)
+            //.whereGreaterThanOrEqualTo("Longitude", position.longitude - RADIUS)
+        filteredDrops.addSnapshotListener { snapshot, e ->
+            if(e != null) {
+                Log.w("GetDrops","Listen Failed.", e)
+                return@addSnapshotListener
+            }
+            if(snapshot != null && snapshot.first().exists()) {
+                Log.d("GetDrops", "Current Data: ${snapshot.first().data}")
+                dropList = snapshot.toObjects(DropHolder::class.java).map{ dh ->
+                    Drop.dropHolderToDrop(dh)
+                }
+            }
+            else {
+                Log.d("GetDrops", "Current data: null")
+            }
+        }
+        DataAccess.DropList = dropList
+        return dropList
+    }
+
+
 }
